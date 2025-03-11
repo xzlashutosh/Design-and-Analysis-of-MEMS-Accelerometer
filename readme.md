@@ -131,41 +131,82 @@ The sensor design includes:
 - **Amplifier design** using Cadence Virtuoso with 120 dB gain.  
 - **Voltage-controlled oscillator (VCO)** for frequency-based output.
 
-An analog circuit is required to convert, read and co-relate
- the capacitance change occurring due to acceleration on the
- accelerometer system. The circuit can be broadly understood
- using the block diagram shown in Fig. 21. It consists of three
- major stages- capacitance to voltage conversion; amplification
- and peak detection. The circuit shown in Fig. 22 is designed
- for this. It consists of the changing capacitor Cs and Cr (the
- two capacitors in the differential capacitance). Two voltage
- sources with a phase difference of 90 degrees drive the
- two capacitors (i.e. electrodes). The Cp here stands for the
- capacitance due to parasitics and Ci is the input capacitance
- of the op-amp stage. Then this voltage is taken through Cs
- and Cr and brought to op-amp to be amplified. As the signal
- is amplified, it gives a similar output as the input but with an
- amplified amplitude. Since our driving was a sinusoidal input,
- it gave us a sinusoidal output. This is then given to a precision
- peak detector circuit, which feeds a DC voltage to a voltage
-controlled oscillator to generate a frequency corresponding to
- the voltage input. This output frequency can be then measured
- by a digital circuit to display on a 7-segment display.
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/acd.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/circuit%20schematic.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/VampInput.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/output.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/ROMInputTOCap.png)
+An analog circuit is required to convert, read, and co-relate the capacitance change occurring due to acceleration on the accelerometer system. The circuit can be broadly understood using the block diagram shown in Figure 1.
+
+![Analog Circuit Block Diagram](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/acd.png)  
+**Figure 1:** Analog Circuit Block Diagram
+
+The circuit shown in Figure 2 is designed for this purpose.
+
+![Schematic for Capacitance to Voltage Conversion](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/circuit%20schematic.png)  
+**Figure 2:** Schematic for Capacitance to Voltage Conversion
+
+**Key Components:**
+- **Cₛ** and **Cᵣ**: Differential capacitance pair
+- **Cₚ**: Parasitic capacitance
+- **Cᵢ**: Op-amp input capacitance
+
+The system uses:
+- Two 90° phase-shifted voltage sources to drive electrodes
+- Three stages:  
+  1. Capacitance-to-voltage conversion  
+  2. Signal amplification  
+  3. Peak detection and DC conversion
+
+**First Stage Output Equation**
+$$
+V_{s1} = \frac{(C_s - C_r) \cdot V_r}{C_s + C_r + C_i + C_p}
+$$
+
+![Capacitance to Voltage Conversion](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/VampInput.png)  
+**Figure 3:** First Stage Output (Vₛ₁)
+
+**Amplification Stage**
+$$
+V_{s2} = A \cdot V_{s1}
+$$
+
+**Peak Detector Output**
+$$
+V_{s3} = \max(V_{s2})
+$$
+
+![Final Output Voltage](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/output.png)  
+**Simulation Output for Different Acceleration Values**
 
 ---
 
+### Performance Data
+| Acceleration (g) | Displacement (m) | C₁ (F)        | C₂ (F)        | Vₛ₁ (V)     |
+|-------------------|-------------------|---------------|---------------|-------------|
+| 4                 | 5.7433E-08       | 1.0418E-13    | 9.5244E-14    | 4.230E-03   |
+| 3                 | 4.323E-08        | 1.0293E-13    | 9.6206E-14    | 3.220E-03   |
+| 2                 | 2.8821E-08       | 1.0171E-13    | 9.722E-14     | 2.160E-03   |
+| 1                 | 1.4275E-08       | 1.0054E-13    | 9.8265E-14    | 1.092E-03   |
 
+---
 
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/points.txt)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/stage1.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/stage2.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/stage3.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/twinBuilder.png)
+### Op-Amp Specifications
+| Parameter                      | Value   | Units     |
+|--------------------------------|---------|-----------|
+| Open-Loop Gain (A_FB)          | 1000    | -         |
+| Total-Loop Gain                | 1,000,000 | -       |
+| Gain-Bandwidth Product (GBW)   | 5       | MHz       |
+| Max Operating Frequency        | 5       | kHz       |
+| Voltage Swing (V_pp)           | 3.3     | V         |
+| Output Offset Voltage          | 0.1     | V         |
+| Phase Margin                   | 30      | degrees   |
+| Load Capacitance (C_L)         | 1       | pF        |
+
+---
+
+### Design Implementation Flow
+1. **Topology Comparison** 
+2. **Circuit Schematic Design**  
+3. **Simulation Results**
+   3.1 DC Analysis
+   3.2 AC Analysis
+   
 
 ---
 ### Comparison Of Topologies
@@ -363,6 +404,13 @@ Following rigorous hand calculations, schematic design, and various simulations,
 | Output Referred Offset Voltage| 1.65 V              |
 
 
+---
+
+### System Integration with ROM Model
+![ROM Integration](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/ROMInputTOCap.png)  
+**ROM Model Implementation** 
+![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/twinBuilder.png)
+**ROM Model Simulation** 
 
 ---
 
@@ -389,11 +437,16 @@ This project successfully designed a **capacitive MEMS accelerometer** for **ran
 - **Clinical trials to validate real-world effectiveness.**  
 
 ## Authors
-**Ashutosh Sharma** BME, Hungary ; USN, Norway; Aalto University, Finland
-   Email: ashutosh.iiitk@gmail.com
+**Ashutosh Sharma** 
+
+BME, Hungary | USN, Norway | Aalto University, Finland 
+
+Email: ashutosh.iiitk@gmail.com
 
 
 ## Links
-Slide Deck - 
-MEMS Accelerometer Design COMSOL -  https://drive.google.com/file/d/11caJSOxDjlSavZMevXnnpjdtpxdJjDQd/view?usp=drive_link
+Slide Deck - https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/MEMS_Accelerometer_Design_report.pdf
+
+MEMS Accelerometer Design COMSOL Files-  https://drive.google.com/file/d/11caJSOxDjlSavZMevXnnpjdtpxdJjDQd/view?usp=drive_link
+
 Damping Calculation Design - https://drive.google.com/file/d/1mVZ0J0S_J4V2JUlCTjnmJ0y24ogSPAOz/view?usp=drive_link
