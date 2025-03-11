@@ -84,6 +84,7 @@ where:
 - \( a \) is the acceleration,
 - \( k \) is the spring constant.
 ---
+![Electrodes and Fingers as differential capacitors]([https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Digital%20Design%20-%20VCO%20and%20frequency%20counter/Differential_capacitance_DX.png)]
 
 ## Reduced Order Modeling of the MEMS Device
 
