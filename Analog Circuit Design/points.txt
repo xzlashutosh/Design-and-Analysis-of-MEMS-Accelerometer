@@ -1,0 +1,27 @@
+Include your report the followings:
+\begin{itemize}
+    \item Brief description of the main idea behind of the analog circuit design (absolute and relative mismatch of components). 
+
+    \item Specification (table) 
+        \begin{itemize}
+        \item amplification with feedback circuit 
+        \item amplification without feedback circuit 
+        \item cutoff frequency 
+        \item gain bandwidth 
+        \item maximum input offset 
+        \item (maximum input noise) 
+        \end{itemize}
+    \item Comparison of topologies (table) 
+    \item Description of selected topology 
+    \begin{itemize}
+        \item Highlight the main advantages 
+    \end{itemize}
+    \item Hand calculations (equations) 
+    \begin{itemize}
+        \item Biasing conditions, component parameters 
+    \end{itemize}
+    \item Cadence schematics 
+    \item Schematics with annotated operating points 
+    \item Result of analyses (DC, AC, Stability, Transient, Monte-Carlo, PVT) 
+    \item Creation of an analog cell of the circuit 
+\end{itemize}
