@@ -34,6 +34,11 @@ This design enables **real-time, data-driven** monitoring and feedback, enhancin
     -   [DC Analysis](#dc-analysis)
     -   [AC Analysis](#ac-analysis)
     -   [Stability Analysis](#stability-analysis)
+    -   [PVT](#PVT)
+    -   [Monte Carlo Simulation](#Monte Carlo Simulation)
+    -   [Transient Analysis](#Transient Analysis)
+    -   [DC Response](#DC Response)
+    -   [System Integration with ROM Model](#System Integration with ROM Model)
 6.  [Digital Design](#digital-design)
 7.  [Conclusion](#conclusion)
 
@@ -209,8 +214,6 @@ $$
 1. **Topology Comparison** 
 2. **Circuit Schematic Design**  
 3. **Simulation Results**
-   3.1 DC Analysis
-   3.2 AC Analysis
    
 
 ---
@@ -249,7 +252,7 @@ where $A_1$ and $A_2$ are the gains of the individual stages of the two-stage op
 
 ### Hand Calculation
 
-### Input Parameters for the Design
+**Input Parameters for the Design**
 | **Parameter**         | **Value**                 | **Description**                   |
 |------------------------|---------------------------|-------------------------------------|
 | $C_L$               | $10  \text{pF}$       | Load capacitance                   |
@@ -265,7 +268,7 @@ where $A_1$ and $A_2$ are the gains of the individual stages of the two-stage op
 | $V_{\text{offset, out}}$| $0.1  \text{V}$   | Output offset voltage              |
 | $A_{Vth}$           | $9.5  \text{mV}\cdot\mu\text{m}$| Matching parameter          |
 
-### Key Equations for Two-Stage Op-Amp Design
+**Key Equations for Two-Stage Op-Amp Design**
 
 | **Equation** | **Unit/Value** |
 |-------------|--------------|
@@ -336,7 +339,10 @@ AC response over the range of frequencies.
 
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/PMvsRmiller40pF.png)
 
+
+
 ### PVT
+
 
 | **Test**            | **Nominal**   | **Spec**   | **Pass/Fail** | **Min**       | **Max**       | **$R_f$**        | **$C_c$**    |
 |----------------------|---------------|------------|---------------|---------------|---------------|------------------|--------------|
@@ -360,12 +366,16 @@ AC response over the range of frequencies.
 
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/PVT20pF_1.05kohm.png)
 
+
+
 ### Monte Carlo Simulation
+
 
 **Monte Carlo Analysis**
 
 
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/MonteCarlo40pF_933.33ohm.png)
+
 
 
 ### Transient Analysis
@@ -374,6 +384,8 @@ AC response over the range of frequencies.
 
 
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/transientAnalysis.png)
+
+
 
 ### DC Response
   
@@ -412,6 +424,8 @@ Following rigorous hand calculations, schematic design, and various simulations,
 ---
 
 ### System Integration with ROM Model
+
+
 ![ROM Integration](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/ROMInputTOCap.png)  
 **ROM Model Implementation** 
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/twinBuilder.png)
