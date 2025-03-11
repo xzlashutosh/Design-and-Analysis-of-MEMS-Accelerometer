@@ -154,6 +154,7 @@ The system uses:
   3. Peak detection and DC conversion
 
 **First Stage Output Equation**
+
 $$
 V_{s1} = \frac{(C_s - C_r) \cdot V_r}{C_s + C_r + C_i + C_p}
 $$
@@ -161,28 +162,32 @@ $$
 ![Capacitance to Voltage Conversion](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/VampInput.png)  
 **Figure 3:** First Stage Output (Vₛ₁)
 
-**Amplification Stage**
-$$
-V_{s2} = A \cdot V_{s1}
-$$
 
-**Peak Detector Output**
-$$
-V_{s3} = \max(V_{s2})
-$$
+**Performance Data**
 
-![Final Output Voltage](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/output.png)  
-**Simulation Output for Different Acceleration Values**
-
----
-
-### Performance Data
 | Acceleration (g) | Displacement (m) | C₁ (F)        | C₂ (F)        | Vₛ₁ (V)     |
 |-------------------|-------------------|---------------|---------------|-------------|
 | 4                 | 5.7433E-08       | 1.0418E-13    | 9.5244E-14    | 4.230E-03   |
 | 3                 | 4.323E-08        | 1.0293E-13    | 9.6206E-14    | 3.220E-03   |
 | 2                 | 2.8821E-08       | 1.0171E-13    | 9.722E-14     | 2.160E-03   |
 | 1                 | 1.4275E-08       | 1.0054E-13    | 9.8265E-14    | 1.092E-03   |
+
+
+**Amplification Stage**
+
+$$
+V_{s2} = A \cdot V_{s1}
+$$
+
+**Peak Detector Output**
+
+$$
+V_{s3} = \max(V_{s2})
+$$
+
+![Final Output Voltage](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/output.png)  
+
+**Simulation Output for Different Acceleration Values**
 
 ---
 
