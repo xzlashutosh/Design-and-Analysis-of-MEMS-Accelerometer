@@ -15,19 +15,27 @@ A structured methodology was followed:
 This design enables **real-time, data-driven** monitoring and feedback, enhancing remote and personalized rehabilitation therapy.
 
 ---
-
 ## Table of Contents
-1. [Introduction](#introduction)  
-2. [Background](#background)  
-3. [Reduced Order Modeling of the MEMS Device](#reduced-order-modeling-of-the-mems-device)  
-   - [Simulation Outline](#simulation-outline)  
-   - [Material Properties](#material-properties)  
-   - [Geometry](#geometry)  
-   - [Meshing](#meshing)  
-4. [Analog Circuit Design](#analog-circuit-design)
-      - 
-6. [Digital Design](#digital-design)  
-7. [Conclusion](#conclusion)  
+1.  [Abstract](#abstract)
+2.  [Introduction](#introduction)
+3.  [Background](#background)
+4.  [Reduced Order Modeling of the MEMS Device](#reduced-order-modeling-of-the-mems-device)
+    -   [Simulation Outline](#simulation-outline)
+    -   [Material Properties](#material-properties)
+    -   [Geometry](#geometry)
+    -   [Meshing](#meshing)
+5.  [Analog Circuit Design](#analog-circuit-design)
+    -   [Comparison of Topologies](#comparison-of-topologies)
+    -   [Description of Selected Topologies](#description-of-selected-topologies)
+    -   [Hand Calculation](#hand-calculation)
+    -   [Input Parameters for the Design](#input-parameters-for-the-design)
+    -   [Key Equations for Two-Stage Op-Amp Design](#key-equations-for-two-stage-op-amp-design)
+    -   [Cadence Schematics](#cadence-schematics)
+    -   [DC Analysis](#dc-analysis)
+    -   [AC Analysis](#ac-analysis)
+    -   [Stability Analysis](#stability-analysis)
+6.  [Digital Design](#digital-design)
+7.  [Conclusion](#conclusion)
 
 ---
 
@@ -116,6 +124,8 @@ The sensor design includes:
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Digital%20Design%20-%20VCO%20and%20frequency%20counter/meshoverall.png)
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Digital%20Design%20-%20VCO%20and%20frequency%20counter/overall%20mesh.png)
 
+---
+
 ## Analog Circuit Design
 - **Capacitance-to-voltage conversion circuit** implemented in LTSpice.  
 - **Amplifier design** using Cadence Virtuoso with 120 dB gain.  
@@ -150,7 +160,7 @@ controlled oscillator to generate a frequency corresponding to
 ---
 
 
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/PVT_TestPassed.jpeg)
+
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/points.txt)
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/stage1.png)
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/stage2.png)
@@ -176,11 +186,10 @@ This is an amplifier where a resistor is placed in series with the source connec
 Its gain is given by the formula:
 
 $$
-A_v = -G_m R_D = \frac{-g_m R_D}{1 + g_m R_S}
-\label{degGain}
+A_v = -G_m.R_D = \frac{-g_m.R_D}{1 + g_m R_S}
 $$
 
-As evident, the values of \( R_D \) and \( R_S \) are set to obtain a gain of 20dB.  
+As evident, the values of $R_D$ and $R_S$ are set to obtain a gain of 20dB.  
 
 After this, the selected two-stage op-amp stage is used to obtain the required further gain of 100dB. It consists of a differential amplifier, a gain stage followed by a voltage-controlled voltage source (VCVS) as the output stage. The differential stage amplifies the difference between two input signals. It also gives a high common-mode rejection ratio.  
 
@@ -190,9 +199,25 @@ $$
 A_v = A_1.A_2
 $$
 
-where \( A_1 \) and \( A_2 \) are the gains of the individual stages of the two-stage op-amp. The output from this second stage is fed into a VCVS, allowing for handling the load stage.
+where $A_1$ and $A_2$ are the gains of the individual stages of the two-stage op-amp. The output from this second stage is fed into a VCVS, allowing for handling the load stage.
 
 ### Hand Calculation
+
+### Input Parameters for the Design
+| **Parameter**         | **Value**                 | **Description**                   |
+|------------------------|---------------------------|-------------------------------------|
+| $C_L$               | $10  \text{pF}$       | Load capacitance                   |
+| $f_{\text{max}}$    | $5  \text{MHz}$       | Maximum operating frequency        |
+| $V_{pp}$            | $3.3  \text{V}$       | Peak-to-peak voltage               |
+| $V_{\text{on}}$     | $50  \text{mV}$       | Overdrive voltage                  |
+| $V_{\text{thn}}$    | $0.50  \text{V}$      | NMOS threshold voltage             |
+| $V_{\text{thp}}$    | $0.65  \text{V}$      | PMOS threshold voltage             |
+| $K_n$               | $170  \mu\text{A}/\text{V}^2$ | NMOS process constant        |
+| $K_p$               | $60  \mu\text{A}/\text{V}^2$  | PMOS process constant        |
+| $\lambda$           | $0.05$                 | Channel length modulation parameter|
+| $A_{FB}$            | $10^6$                 | Feedback gain (120 dB)             |
+| $V_{\text{offset, out}}$| $0.1  \text{V}$   | Output offset voltage              |
+| $A_{Vth}$           | $9.5  \text{mV}\cdot\mu\text{m}$| Matching parameter          |
 
 ### Key Equations for Two-Stage Op-Amp Design
 
@@ -215,47 +240,129 @@ where \( A_1 \) and \( A_2 \) are the gains of the individual stages of the two-
 | $\text{UGB} = \frac{g_m}{2 \pi C_c}$ | 330 MHz |
 | $\phi_m = 90^\circ - \tan^{-1}\left( \frac{\text{UGB}}{f_1} \right) \times \frac{180}{\pi} - \tan^{-1}\left( \frac{f_2}{\text{UGB}} \right) \times \frac{180}{\pi}$ | 57.52° |
 
-
-
-
-
-
-
 ### Cadence Schematics
-### DC Analysis
-### AC Analysis
-### Stability Analysis
-### PVT
-### Monte Carlo Simulation
-### Transient Analysis
-### DCResponse
-  
 
+**The pre-amplifier stage**
+![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/pre-amp%20stage.png)
+
+**The second stage - 2 Stage Differential Amplifier**
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/2stageOpAmp.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/ACResponse.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/AcOperatingPoints4.png)
+
+**Complete Op-Amp with a testbench**
+![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/opampMonte.png)
+
+### DC Analysis
+
+**DC Operating points for the MOSFETs**
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/DCOperatingPoints.png)
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/DCOperatingPoints_2.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/DCResponse.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/MonteCarlo40pF_933.33ohm.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/PMvsRmiller20pF.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/PMvsRmiller40pF.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/PVT20pF_1.05kohm.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/PVTall.png)
+
+### AC Analysis
+
+![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/AcOperatingPoints4.png)
+
+AC response over the range of frequencies.
+![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/ACResponse.png)
+
+### Stability Analysis
+**Gain and Phase with $C_c$ = 20pF**
+
+
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/StabilityResponse20pF.png)
+
+**Gain and Phase with $C_c$ = 40pF**
+
+
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/StabilityResponse40pF.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/opampMonte.png)
-![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/pre-amp%20stage.png)
+
+**Gain and Phase at 5kHz**
+
+
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/stabilityAt5KHz.png)
+
+**Phase Margin vs $R_f$ with $C_c$ = 20pF**
+
+
+![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/PMvsRmiller20pF.png)
+
+**Phase Margin vs $R_f$ with $C_c$ = 40pF**
+
+
+![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/PMvsRmiller40pF.png)
+
+### PVT
+
+| **Test**            | **Nominal**   | **Spec**   | **Pass/Fail** | **Min**       | **Max**       | **$R_f$**        | **$C_c$**    |
+|----------------------|---------------|------------|---------------|---------------|---------------|------------------|--------------|
+| TB:1 Gain           | 122.9 dB      | $> 80$     | pass          | 90.28 dB      | 123.3 dB      | 933.33 $\Omega$  | 40 pF        |
+| TB:1 Phase Margin   | 55.4°         | $> 30$     | pass          | 51.77°        | 69.31°        | 933.33 $\Omega$  | 40 pF        |
+| TB:2 Phase Margin   | 44.5°         | $> 30$     | pass          | 39.75°        | 49.17°        | 1.05 k$\Omega$   | 20 pF        |
+| TB:2 Gain           | 122.9 dB      | $> 80$     | pass          | 90.28 dB      | 123.3 dB      | 1.05 k$\Omega$   | 20 pF        |
+
+**PVT Test Validation in Cadence**
+
+
+![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Analog%20Circuit%20Design/PVT_TestPassed.jpeg)
+
+**Phase Margin and Gain variation with the changing supply and process parameters.**
+
+
+![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/PVTall.png)
+
+**Gain and Phase Margin variation with the changing temperature and process parameters.**
+
+
+![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/PVT20pF_1.05kohm.png)
+
+### Monte Carlo Simulation
+
+**Monte Carlo Analysis**
+
+
+![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/MonteCarlo40pF_933.33ohm.png)
+
+
+### Transient Analysis
+
+**Transient Simulation with pulse voltages**
+
+
 ![alt text](https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/OverallAnalogCircuitImages/transientAnalysis.png)
 
-### Key Specifications
-| Parameter | Value |
-|-----------|-------|
-| Gain | 120 dB |
-| Bandwidth | 5 MHz |
-| Output Swing | 3.3V |
-| Phase Margin | 30° |
+### DC Response
+  
+
+**Amplification Test Circuit Simulation**
+
+DC simulation is conducted to test the amplification of the op-amp by varying the input voltage from zero to 15mV. To perform this, DC voltage is applied at the non-inverting terminal of the op-amp. 
+
+As shown in **Figure 1**, the amplifier response is illustrated. The amplifier is configured in a non-inverting amplifier configuration. The resistor values are in the ratio of 99k/1k, which results in a net amplification of 100, as visible in the figure.
+
+The amplification is given by:
+
+$$
+\frac{V_o}{V_i} = 1 + \frac{R_2}{R_1}
+$$
+
+Here, the input of 15mV also becomes 30mV accordingly, verifying the correct operation of the designed op-amp.
+
+![Amplification using non-inverting op-amp configuration](/OverallAnalogCircuitImages/DCResponse.png)
+**Amplification using non-inverting op-amp configuration** 
+
+Following rigorous hand calculations, schematic design, and various simulations, the design is finalized with the following specifications:
+
+| **Parameter**                 | **Value**            |
+|--------------------------------|----------------------|
+| Gain Factor                   | 122.9364 dB         |
+| Gain at 5 kHz                 | 95 dB               |
+| Gain Bandwidth Product (GBW)  | 5000 kHz            |
+| Cutoff Frequency              | 207 Hz              |
+| Phase Margin                  | ~$45^\circ$          |
+| Percentage Error (for 1mV signal) | 0.1%               |
+| Input Offset Voltage          | 0.165 mV            |
+| Output Referred Offset Voltage| 1.65 V              |
+
+
 
 ---
 
