@@ -65,6 +65,9 @@ For small displacements, the differential capacitance is given by:
 $$
 \Delta C = \frac{2\varepsilon A x}{d^2 - x^2}
 $$
+<p align="center">
+  <img width="400" height="400" src="https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Digital%20Design%20-%20VCO%20and%20frequency%20counter/Differential_capacitance_DX.png"
+</p>
 
 Using the **small displacement approximation**, we obtain the linearized capacitance equation:
 
@@ -79,12 +82,12 @@ x = \frac{ma}{k}
 $$
 
 where:
-- \( x \) is the displacement of the proof mass,
-- \( m \) is the mass of the proof mass,
-- \( a \) is the acceleration,
-- \( k \) is the spring constant.
----
-![Electrodes and Fingers as differential capacitors] (Digital Design - VCO and frequency counter/Differential_capacitance_DX.png)
+- \ x is the displacement of the proof mass,
+- \ m  is the mass of the proof mass,
+- \ a is the acceleration,
+- \ k  is the spring constant.
+
+
 
 ## Reduced Order Modeling of the MEMS Device
 
