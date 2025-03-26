@@ -1,7 +1,7 @@
 # Design and Analysis of a Single Axis Capacitive Accelerometer Sensor for Range of Motion Applications  
 
 ## Abstract
-This report presents the development and analysis of a single-axis capacitive accelerometer, designed for Range of Motion (ROM) monitoring in rehabilitation. The sensor is based on MEMS technology and operates with differential capacitance created by the displacement of a proof mass, changing the capacitances between electrodes. The sensor is designed to measure accelerations from **-4g to +4g** with a minimum bandwidth of **5 kHz**, ensuring high sensitivity and adaptability to low-frequency motion tracking.
+This repo presents the development and analysis of a single-axis capacitive accelerometer, designed for Range of Motion (ROM) monitoring in rehabilitation. The sensor is based on MEMS technology and operates with differential capacitance created by the displacement of a proof mass, changing the capacitances between electrodes. The sensor is designed to measure accelerations from **-4g to +4g** with a minimum bandwidth of **5 kHz**, ensuring high sensitivity and adaptability to low-frequency motion tracking.
 **Keywords:** FEM, Linear Perturbation Analysis, Cadence Virtuoso, Reduced Order Modeling, Digital Twin, Therapy Monitoring.
 
 A structured methodology was followed:  
