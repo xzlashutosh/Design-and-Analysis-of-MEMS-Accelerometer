@@ -460,6 +460,9 @@ BME, Hungary | USN, Norway | Aalto University, Finland
 
 Email: ashutosh.iiitk@gmail.com
 
+## Project Team:
+Ashutosh Sharma, Vaigunthan Puvanenthiram, Mayada Ahmed & Nabeel Jadon.
+
 
 ## Links
 Slide Deck - https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/Presentation%20-%20MEMS%20Accelerometer%20Design.pptx
