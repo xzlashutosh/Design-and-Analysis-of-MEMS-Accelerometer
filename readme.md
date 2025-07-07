@@ -470,7 +470,3 @@ Slide Deck - https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelero
 MEMS Accelerometer Design ANSYS REPORT - https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/WP1_4_Report_Free_to_ROM.pdf
 
 MEMS Accelerometer Design COMSOL REPORT - https://github.com/xzlashutosh/Design-and-Analysis-of-MEMS-Accelerometer/blob/main/MEMS_Accelerometer_Design_report.pdf
-
-MEMS Accelerometer Design COMSOL Files-  https://drive.google.com/file/d/11caJSOxDjlSavZMevXnnpjdtpxdJjDQd/view?usp=drive_link
-
-Damping Calculation Design - https://drive.google.com/file/d/1mVZ0J0S_J4V2JUlCTjnmJ0y24ogSPAOz/view?usp=drive_link
